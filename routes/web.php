@@ -18,24 +18,29 @@
     });
 
     $router->group(['prefix' => 'products'], function () use ($router) {
-        $router->get('/', ['uses' => 'ProductController@showProduct']); 
+        $router->get('/', ['uses' => 'ProductController@showProduct']);
 
         $router->get('/id/{id}', ['uses' => 'ProductController@takeProduct']);
 
         $router->get('/type/{type}', ['uses' => 'ProductController@showProductType']);
-        
+
         $router->group(['prefix' => 'transactions'], function () use ($router) {
-            $router->get('/{id}',  ['uses' => 'TransactionController@takeTransaction']); 
+            $router->get('/{id}',  ['uses' => 'TransactionController@takeTransaction']);
         });
     });
 
     $router->group(['prefix' => 'carts'], function () use ($router) {
-        $router->get('/{id}', ['uses' => 'UserController@showCart']); 
+        $router->get('/{id}', ['uses' => 'UserController@showCart']);
 
-        $router->put('/{id}', ['uses' => 'UserController@updateCart']); 
+        $router->put('/{id}', ['uses' => 'UserController@updateCart']);
 
-        $router->delete('/{id}', ['uses' => 'UserController@deleteCart']); 
+        $router->delete('/{id}', ['uses' => 'UserController@deleteCart']);
     });
+
+    $router->group(['prefix' => 'auth'], function () use ($router) {
+      $router->post('/register', ['uses' => 'AuthController@register']);
+      $router->post('/login', ['uses' => 'AuthController@login']);
+  });
 
     $router->group(['prefix' => 'transactions'], function () use ($router) {
         $router->post('/', ['uses' => 'TransactionController@transaction']);
@@ -44,15 +49,15 @@
     $router->group(['prefix' => 'transactions'], function () use ($router) {
         $router->get('/', ['uses' => 'TransactionController@showTransaction']);
 
-        $router->put('/{id}',  ['uses' => 'TransactionController@updateTransaction']); 
+        $router->put('/{id}',  ['uses' => 'TransactionController@updateTransaction']);
     });
 
         $router->group(['prefix' => 'users'], function () use ($router) {
-            $router->get('/{id}', ['uses' => 'UserController@showUser']); 
+            $router->get('/{id}', ['uses' => 'UserController@showUser']);
 
-            $router->put('/{id}', ['uses' => 'UserController@updateUser']); 
+            $router->put('/{id}', ['uses' => 'UserController@updateUser']);
 
-            $router->delete('/{id}', ['uses' => 'UserController@deleteUser']); 
+            $router->delete('/{id}', ['uses' => 'UserController@deleteUser']);
         });
 
             $router->group(['prefix' => 'users'], function () use ($router) {
@@ -60,9 +65,9 @@
             });
 
             $router->group(['prefix' => 'products'], function () use ($router) {
-                $router->post('/', ['uses' => 'ProductController@insertProduct']); 
+                $router->post('/', ['uses' => 'ProductController@insertProduct']);
 
-                $router->put('/{id}', ['uses' => 'ProductController@updateProduct']); 
+                $router->put('/{id}', ['uses' => 'ProductController@updateProduct']);
 
-                $router->delete('/{id}', ['uses' => 'ProductController@deleteProduct']); 
+                $router->delete('/{id}', ['uses' => 'ProductController@deleteProduct']);
             });
