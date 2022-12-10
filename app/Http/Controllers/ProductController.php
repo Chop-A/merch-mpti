@@ -26,7 +26,7 @@ class ProductController extends Controller
         $output['data'] = Product::all();
         if($success) {
             return (new Response($output))
-            ->header('Content-type', 'application/json');
+            ->header('Access-Control-Allow-Origin', '*');
         }
         else if(!$success) {
             return response()->json([
@@ -46,14 +46,14 @@ class ProductController extends Controller
         $success = Product::where($type);
         $output['success'] = true;
         $output['message'] = 'Daftar produk per tipe';
-        $output['data'] = Product::where($type);
+        $output['data'] = Product::find($type);
         if($success) {
             return response()->json([
                 'success' => true,
                 'message' => 'Informasi produk tertentu',
                 'data' => [
                    'product' => Product::select('id','productName','image','price', 'type')->where('type','=',$type)->get() ]
-            ], 200);
+            ], 200)->header('Access-Control-Allow-Origin', '*');
         } else if(!$success) {
             return response()->json([
                 'success' => false,
@@ -74,12 +74,14 @@ class ProductController extends Controller
         $output['message'] = 'Informasi produk tertentu';
         $output['data'] = Product::find($id);
         if($success) {
-            return response()->json([
-                'success' => true,
-                'message' => 'Informasi produk tertentu',
-                'data' => [
-                   'product' => Product::select('id','productName','image','price','description','stock','type')->where('id','=',$id)->get() ]
-            ], 200);
+            return (new Response($output))
+            ->header('Access-Control-Allow-Origin', '*');
+            // return response()->json([
+            //     'success' => true,
+            //     'message' => 'Informasi produk tertentu',
+            //     'data' => [
+            //        'product' => Product::select('id','productName','image','price','description','stock','type')->where('id','=',$id)->get() ]
+            // ], 200);
         } else if(!$success) {
             return response()->json([
                 'success' => false,
